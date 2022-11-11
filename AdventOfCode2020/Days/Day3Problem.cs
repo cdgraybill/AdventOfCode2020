@@ -32,7 +32,21 @@ namespace AdventOfCode2020.Days
             return ForestLinePosition;
         }
 
-        public int CountTrees(List<string> forest)
+        public int GetTobogganLocationInForestLinePartTwo(string forestLine, int currentPosition, int rightDistance)
+        {
+
+            ForestLinePosition = currentPosition + rightDistance;
+
+            if (ForestLinePosition >= forestLine.Length)
+            {
+                var difference = ForestLinePosition - forestLine.Length;
+                ForestLinePosition = difference;
+            }
+
+            return ForestLinePosition;
+        }
+
+        public int CountTreesPartOne(List<string> forest)
         {
             int numberOfTrees = 0;
 
@@ -47,5 +61,27 @@ namespace AdventOfCode2020.Days
 
             return numberOfTrees;
         }
+
+        public int CountTreesPartTwo(List<string> forest, SlopeAngle slopeAngle)
+        {
+            int numberOfTrees = 0;
+
+            for (int i = slopeAngle.DownDistance; i < forest.Count; i+=slopeAngle.DownDistance)
+            {
+                var forestLine = forest[i];
+                var newPosition = GetTobogganLocationInForestLinePartTwo(forestLine, ForestLinePosition, slopeAngle.RightDistance);
+
+                if (forestLine[newPosition] == '#')
+                    numberOfTrees++;
+            }
+
+            return numberOfTrees;
+        }
+    }
+
+    public class SlopeAngle
+    {
+        public int RightDistance { get; set; }
+        public int DownDistance { get; set; }
     }
 }

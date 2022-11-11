@@ -55,11 +55,54 @@ namespace AdventOfCode2020Tests
         }
 
         [Test]
-        public void TestInput()
+        public void GetTobogganLocationInForestLine_NoDifference_PartTwo()
+        {
+            var day3 = new Day3Problem();
+            var currentPosition = day3.ForestLinePosition = 0;
+            var rightDistance = 5;
+            var position = day3.GetTobogganLocationInForestLinePartTwo(testForest[0], currentPosition, rightDistance);
+
+            Assert.AreEqual(5, position);
+        }
+
+        [Test]
+        public void GetTobogganLocationInForestLine_Difference_PartTwo()
+        {
+            var day3 = new Day3Problem();
+            var currentPosition = day3.ForestLinePosition = 7;
+            var rightDistance = 7;
+            var position = day3.GetTobogganLocationInForestLinePartTwo(testForest[0], currentPosition, rightDistance);
+
+            Assert.AreEqual(3, position);
+        }
+
+        [Test]
+        public void TestInput_PartOne()
         {
             var day3 = new Day3Problem();
             var forest = day3.ParseInput();
-            var numberOfTrees = day3.CountTrees(forest);
+            var numberOfTrees = day3.CountTreesPartOne(forest);
+
+            Assert.AreEqual(7, numberOfTrees);
+        }
+
+        [Test]
+        [TestCase(1, 1)]
+        [TestCase(3, 1)]
+        [TestCase(5, 1)]
+        [TestCase(7, 1)]
+        [TestCase(1, 2)]
+        public void TestInput_PartTwo(int rightDistance, int downDistance)
+        {
+            var day3 = new Day3Problem();
+            var forest = day3.ParseInput();
+            var slopeAngle = new SlopeAngle
+            {
+                RightDistance = rightDistance,
+                DownDistance = downDistance
+            };
+
+            var numberOfTrees = day3.CountTreesPartTwo(forest, slopeAngle);
 
             Assert.AreEqual(7, numberOfTrees);
         }
@@ -68,7 +111,7 @@ namespace AdventOfCode2020Tests
         public void CountTrees_Success()
         {
             var day3 = new Day3Problem();
-            var numberOfTrees = day3.CountTrees(testForest);
+            var numberOfTrees = day3.CountTreesPartOne(testForest);
 
             Assert.AreEqual(7, numberOfTrees);
         }
