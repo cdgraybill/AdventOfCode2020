@@ -35,7 +35,11 @@ namespace AdventOfCode2020Tests
         public void ParseInputIntoPassport()
         {
             var day4 = new Day4Problem();
-            var passports = day4.ParseInputIntoPassport(TestInput);
+            var passport = day4.ParseInputIntoPassport(TestInput);
+
+            Assert.IsInstanceOf<Dictionary<string, string>>(passport);
+            Assert.AreEqual("ecl", passport.Keys.First());
+            Assert.AreEqual("gry", passport.Values.First());
         }
 
         [Test]
