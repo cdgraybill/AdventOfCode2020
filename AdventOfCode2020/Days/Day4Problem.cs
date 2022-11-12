@@ -11,6 +11,7 @@ namespace AdventOfCode2020.Days
     public class Day4Problem
     {
         private readonly string[] MandatoryKeys = new[] { "byr", "iyr", "eyr", "hgt", "hcl", "ecl", "pid" };
+        private readonly string[] EyeColors = new[] { "amb", "blu", "brn", "gry", "grn", "hzl", "oth" };
 
         public PassportField SplitFieldIntoKeyValuePair(string fieldString)
         {
@@ -37,7 +38,6 @@ namespace AdventOfCode2020.Days
 
                 if (string.IsNullOrEmpty(problemInput[i - 1]) || i == problemInput.Count)
                 {
-                    var passportString = sb.ToString();
                     numberOfValidPasswords = CountValidPasswords(numberOfValidPasswords, passports, sb);
                 }
             }
@@ -99,28 +99,49 @@ namespace AdventOfCode2020.Days
 
         public bool IsValidBirthYear(string birthYear)
         {
-            return IsValidYear(birthYear, 1920, 2002);
+            return IsValidNumber(birthYear, 1920, 2002);
         }
 
         public bool IsValidIssueYear(string issueYear)
         {
-            return IsValidYear(issueYear, 2010, 2020);
+            return IsValidNumber(issueYear, 2010, 2020);
         }
 
         public bool IsValidExpirationYear(string expirationYear)
         {
-            return IsValidYear(expirationYear, 2020, 2030);
+            return IsValidNumber(expirationYear, 2020, 2030);
         }
 
-        private static bool IsValidYear(string expirationYear, int min, int max)
+        private static bool IsValidNumber(string value, int min, int max)
         {
-            var birthYearInt = Convert.ToInt32(expirationYear);
-            var isValidBirthYear = false;
+            var number = Convert.ToInt32(value);
+            var isValidNumber = false;
 
-            if (birthYearInt >= min || birthYearInt <= max)
-                isValidBirthYear = true;
+            if (min <= number && number <= max)
+                isValidNumber = true;
 
-            return isValidBirthYear;
+            return isValidNumber;
+        }
+
+        public bool IsValidHeight(string height)
+        {
+            var measurementUnit = height.Substring(height.Length - 2);
+            var heightValue = height.Substring(0, height.Length - 2);
+            var isValidHeight = false;
+
+            switch (measurementUnit)
+            {
+                case "cm":
+                    isValidHeight = IsValidNumber(heightValue, 150, 193);
+                    break;
+                case "in":
+                    isValidHeight = IsValidNumber(heightValue, 59, 76);
+                    break;
+                default:
+                    break;
+            }
+
+            return isValidHeight;
         }
     }
 

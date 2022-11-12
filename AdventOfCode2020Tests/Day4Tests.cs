@@ -55,10 +55,10 @@ namespace AdventOfCode2020Tests
         [Test]
         [TestCase("1920")]
         [TestCase("2002")]
-        [TestCase("7")]
-        [TestCase("100000")]
-        [TestCase("-6")]
-        public void IsValidBirthYear(string birthYear)
+        [TestCase("1999")]
+        [TestCase("1964")]
+        [TestCase("2001")]
+        public void IsValidBirthYear_IsValid(string birthYear)
         {
             var day4 = new Day4Problem();
             var isValidBirthYear = day4.IsValidBirthYear(birthYear);
@@ -67,12 +67,23 @@ namespace AdventOfCode2020Tests
         }
 
         [Test]
-        [TestCase("2010")]
-        [TestCase("2020")]
         [TestCase("7")]
         [TestCase("100000")]
         [TestCase("-6")]
-        public void IsValidIssueYear(string issueYear)
+        public void IsValidBirthYear_IsInvalid(string birthYear)
+        {
+            var day4 = new Day4Problem();
+            var isValidBirthYear = day4.IsValidBirthYear(birthYear);
+
+            Assert.IsFalse(isValidBirthYear);
+        }
+
+        [Test]
+        [TestCase("2010")]
+        [TestCase("2020")]
+        [TestCase("2011")]
+        [TestCase("2015")]
+        public void IsValidIssueYear_IsValid(string issueYear)
         {
             var day4 = new Day4Problem();
             var isValidIssueYear = day4.IsValidIssueYear(issueYear);
@@ -81,17 +92,63 @@ namespace AdventOfCode2020Tests
         }
 
         [Test]
-        [TestCase("2010")]
-        [TestCase("2020")]
         [TestCase("7")]
         [TestCase("100000")]
         [TestCase("-6")]
-        public void IsValidExpirationYear(string expirationYear)
+        public void IsValidIssueYear_IsInvalid(string issueYear)
+        {
+            var day4 = new Day4Problem();
+            var isValidIssueYear = day4.IsValidIssueYear(issueYear);
+
+            Assert.IsFalse(isValidIssueYear);
+        }
+
+        [Test]
+        [TestCase("2020")]
+        [TestCase("2030")]
+        [TestCase("2027")]
+        [TestCase("2022")]
+        public void IsValidExpirationYear_IsValid(string expirationYear)
         {
             var day4 = new Day4Problem();
             var isValidExpirationYear = day4.IsValidExpirationYear(expirationYear);
 
             Assert.IsTrue(isValidExpirationYear);
+        }
+
+        [Test]
+        [TestCase("7")]
+        [TestCase("100000")]
+        [TestCase("-6")]
+        public void IsValidExpirationYear_IsInvalid(string expirationYear)
+        {
+            var day4 = new Day4Problem();
+            var isValidExpirationYear = day4.IsValidExpirationYear(expirationYear);
+
+            Assert.IsFalse(isValidExpirationYear);
+        }
+
+        [Test]
+        [TestCase("60in")]
+        [TestCase("190cm")]
+        public void IsValidHeight_IsValid(string height)
+        {
+            var day4 = new Day4Problem();
+            var isValidHeight = day4.IsValidHeight(height);
+
+            Assert.IsTrue(isValidHeight);
+        }
+
+        [Test]
+        [TestCase("190in")]
+        [TestCase("190gh")]
+        [TestCase("190")]
+        public void IsValidHeight_IsInvalid(string height)
+        {
+            var day4 = new Day4Problem();
+            var isValidHeight = day4.IsValidHeight(height);
+
+            Assert.IsFalse(isValidHeight);
         }
     }
 }
