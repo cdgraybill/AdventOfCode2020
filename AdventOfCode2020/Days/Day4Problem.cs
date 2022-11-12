@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Globalization;
 using System.IO;
 using System.Linq;
 using System.Security.Cryptography.X509Certificates;
@@ -59,7 +60,22 @@ namespace AdventOfCode2020.Days
         private bool IsValidPassport(Dictionary<string, string> passport)
         {
             var isValid = true;
+            isValid = HasMandatoryKeys(passport, isValid);
 
+            if (isValid == false)
+            {
+                return isValid;
+            }
+            else
+            {
+                var valueChecks = new List<bool>();
+            }
+
+            return isValid;
+        }
+
+        private bool HasMandatoryKeys(Dictionary<string, string> passport, bool isValid)
+        {
             foreach (var mandatoryKey in MandatoryKeys)
             {
                 if (!passport.Keys.Contains(mandatoryKey))
@@ -142,6 +158,41 @@ namespace AdventOfCode2020.Days
             }
 
             return isValidHeight;
+        }
+
+        public bool IsHexColor(string hexColor)
+        {
+            var res = 0;
+            var parsedHexColor = hexColor.Substring(1, hexColor.Length -1);
+
+            if (parsedHexColor.Length != 6)
+                return false;
+
+            var isHexColor = int.TryParse(parsedHexColor,
+                NumberStyles.HexNumber,
+                CultureInfo.InvariantCulture, out res);
+
+            return isHexColor;
+        }
+
+        public bool IsValidEyeColor(string eyeColor)
+        {
+            var isValid = true;
+
+            if (!EyeColors.Contains(eyeColor))
+                isValid = false;
+
+            return isValid;
+        }
+
+        public bool IsValidPassportId(string passportId)
+        {
+            var isValid = false;
+
+            if (passportId.Length == 9)
+                isValid = true;
+
+            return isValid;
         }
     }
 

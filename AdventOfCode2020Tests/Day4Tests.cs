@@ -150,5 +150,76 @@ namespace AdventOfCode2020Tests
 
             Assert.IsFalse(isValidHeight);
         }
+
+        [Test]
+        [TestCase("#123abc")]
+        public void IsHexColor_IsValid(string hexColor)
+        {
+            var day4 = new Day4Problem();
+            var isHexColor = day4.IsHexColor(hexColor);
+
+            Assert.IsTrue(isHexColor);
+        }
+
+        [Test]
+        [TestCase("#123abz")]
+        [TestCase("123abc")]
+        public void IsHexColor_IsInvalid(string hexColor)
+        {
+            var day4 = new Day4Problem();
+            var isValidHeight = day4.IsHexColor(hexColor);
+
+            Assert.IsFalse(isValidHeight);
+        }
+
+        [Test]
+        [TestCase("brn")]
+        [TestCase("amb")]
+        [TestCase("blu")]
+        [TestCase("gry")]
+        [TestCase("grn")]
+        [TestCase("hzl")]
+        [TestCase("oth")]
+        public void IsValidEyeColor_IsValid(string eyeColor)
+        {
+            var day4 = new Day4Problem();
+            var isValidEyeColor = day4.IsValidEyeColor(eyeColor);
+
+            Assert.IsTrue(isValidEyeColor);
+        }
+
+        [Test]
+        [TestCase("rrrrrrrrrrrrrrrrrrrrrrrrrrrrrr")]
+        [TestCase("test")]
+        [TestCase("something else")]
+        public void IsValidEyeColor_IsInvalid(string eyeColor)
+        {
+            var day4 = new Day4Problem();
+            var isValidEyeColor = day4.IsValidEyeColor(eyeColor);
+
+            Assert.IsFalse(isValidEyeColor);
+        }
+
+        [Test]
+        [TestCase("123456789")]
+        [TestCase("000000001")]
+        public void IsValidPassportId_IsValid(string passportId)
+        {
+            var day4 = new Day4Problem();
+            var isValidPassportId = day4.IsValidPassportId(passportId);
+
+            Assert.IsTrue(isValidPassportId);
+        }
+
+        [Test]
+        [TestCase("234")]
+        [TestCase("0000000016709162345087613478502783465230485")]
+        public void IsValidPassportId_IsInvalid(string passportId)
+        {
+            var day4 = new Day4Problem();
+            var isValidPassportId = day4.IsValidPassportId(passportId);
+
+            Assert.IsFalse(isValidPassportId);
+        }
     }
 }
