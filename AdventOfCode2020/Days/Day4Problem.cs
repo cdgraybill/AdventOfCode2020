@@ -37,6 +37,7 @@ namespace AdventOfCode2020.Days
 
                 if (string.IsNullOrEmpty(problemInput[i - 1]) || i == problemInput.Count)
                 {
+                    var passportString = sb.ToString();
                     numberOfValidPasswords = CountValidPasswords(numberOfValidPasswords, passports, sb);
                 }
             }
@@ -44,9 +45,9 @@ namespace AdventOfCode2020.Days
             return numberOfValidPasswords;
         }
 
-        private void AddFieldsToPassport(Dictionary<string, string> passport, StringBuilder sb)
+        private void AddFieldsToPassport(Dictionary<string, string> passport, string rawPassportString)
         {
-            var passportFields = sb.ToString().Split(" ");
+            var passportFields = rawPassportString.Split(" ");
             var adjustedFields = passportFields.SkipLast(1).ToArray();
             foreach (var passportField in adjustedFields)
             {
@@ -73,8 +74,7 @@ namespace AdventOfCode2020.Days
 
         private int CountValidPasswords(int numberOfValidPasswords, List<Dictionary<string, string>> passports, StringBuilder sb)
         {
-            var passport = new Dictionary<string, string>();
-            AddFieldsToPassport(passport, sb);
+            var passport = CreatePassport(sb.ToString());
             passports.Add(passport);
 
             if (IsValidPassport(passport))
@@ -84,10 +84,43 @@ namespace AdventOfCode2020.Days
             return numberOfValidPasswords;
         }
 
+        private Dictionary<string, string> CreatePassport(string rawPassportString)
+        {
+            var passport = new Dictionary<string, string>();
+            AddFieldsToPassport(passport, rawPassportString);
+            return passport;
+        }
+
         private static void GetRawPassportString(List<string> problemInput, StringBuilder sb, int i)
         {
             if (!string.IsNullOrEmpty(problemInput[i - 1]))
                 sb.Append(problemInput[i - 1] + " ");
+        }
+
+        public bool IsValidBirthYear(string birthYear)
+        {
+            return IsValidYear(birthYear, 1920, 2002);
+        }
+
+        public bool IsValidIssueYear(string issueYear)
+        {
+            return IsValidYear(issueYear, 2010, 2020);
+        }
+
+        public bool IsValidExpirationYear(string expirationYear)
+        {
+            return IsValidYear(expirationYear, 2020, 2030);
+        }
+
+        private static bool IsValidYear(string expirationYear, int min, int max)
+        {
+            var birthYearInt = Convert.ToInt32(expirationYear);
+            var isValidBirthYear = false;
+
+            if (birthYearInt >= min || birthYearInt <= max)
+                isValidBirthYear = true;
+
+            return isValidBirthYear;
         }
     }
 
