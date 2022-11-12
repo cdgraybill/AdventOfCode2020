@@ -25,6 +25,25 @@ namespace AdventOfCode2020.Days
             return passportField;
         }
 
+        public int GetNumberOfValidPasswords(List<string> problemInput)
+        {
+            var numberOfValidPasswords = 0;
+            var passports = new List<Dictionary<string, string>>();
+            var sb = new StringBuilder();
+
+            for (int i = 1; i <= problemInput.Count; i++)
+            {
+                GetRawPassportString(problemInput, sb, i);
+
+                if (string.IsNullOrEmpty(problemInput[i - 1]) || i == problemInput.Count)
+                {
+                    numberOfValidPasswords = CountValidPasswords(numberOfValidPasswords, passports, sb);
+                }
+            }
+
+            return numberOfValidPasswords;
+        }
+
         private void AddFieldsToPassport(Dictionary<string, string> passport, StringBuilder sb)
         {
             var passportFields = sb.ToString().Split(" ");
@@ -36,7 +55,7 @@ namespace AdventOfCode2020.Days
             }
         }
 
-        public bool IsValidPassport(Dictionary<string, string> passport)
+        private bool IsValidPassport(Dictionary<string, string> passport)
         {
             var isValid = true;
 
@@ -52,31 +71,23 @@ namespace AdventOfCode2020.Days
             return isValid;
         }
 
-        public int GetNumberOfValidPasswords(List<string> problemInput)
+        private int CountValidPasswords(int numberOfValidPasswords, List<Dictionary<string, string>> passports, StringBuilder sb)
         {
-            var numberOfValidPasswords = 0;
-            var passports = new List<Dictionary<string, string>>();
-            var sb = new StringBuilder();
+            var passport = new Dictionary<string, string>();
+            AddFieldsToPassport(passport, sb);
+            passports.Add(passport);
 
-            for (int i = 1; i <= problemInput.Count; i++)
-            {
-                if (!string.IsNullOrEmpty(problemInput[i - 1]))
-                    sb.Append(problemInput[i - 1] + " ");
-                
-                if(string.IsNullOrEmpty(problemInput[i - 1]) || i == problemInput.Count)
-                {
-                    var passport = new Dictionary<string, string>();
-                    AddFieldsToPassport(passport, sb);
-                    passports.Add(passport);
+            if (IsValidPassport(passport))
+                numberOfValidPasswords++;
 
-                    if (IsValidPassport(passport))
-                        numberOfValidPasswords++;
-
-                    sb.Clear();
-                }
-            }
-
+            sb.Clear();
             return numberOfValidPasswords;
+        }
+
+        private static void GetRawPassportString(List<string> problemInput, StringBuilder sb, int i)
+        {
+            if (!string.IsNullOrEmpty(problemInput[i - 1]))
+                sb.Append(problemInput[i - 1] + " ");
         }
     }
 
