@@ -1,16 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Linq;
 
 namespace AdventOfCode2020.Days
 {
     public class Day5Problem
     {
-        private readonly int[] _numberOfRows = new int[128];
-        private readonly int[] _numberOfColumns = new int[9];
-
         public SeatingInstructions SplitSeatingInstructions(string rawInstrutions)
         {
             var seatingInstructions = new SeatingInstructions()
@@ -22,26 +15,34 @@ namespace AdventOfCode2020.Days
             return seatingInstructions;
         }
 
-        public int GetSeatingLocation(char directionOne, char directionTwo, string seatingInstruction)
+        public int GetSeatingLocation(char directionOne, char directionTwo, string seatingInstruction, int[] section)
         {
-            int seatingLocation = 0;
+            var seatLocation = 0;
 
             foreach (var direction in seatingInstruction)
             {
                 switch (direction)
                 {
                     case var _ when direction.Equals(directionOne):
-
+                        section = section.Take(section.Length / 2).ToArray();
                         break;
                     case var _ when direction.Equals(directionTwo):
-
+                        section = section.Skip(section.Length / 2).ToArray();
                         break;
                     default:
                         break;
                 }
+
+                if (section.Length == 1)
+                    seatLocation = section[0];
             }
 
-            return 0;
+            return seatLocation - 1;
+        }
+
+        public object GetSeatId(int rowNumber, int columnNumber)
+        {
+            return rowNumber * 8 + columnNumber;
         }
     }
 
