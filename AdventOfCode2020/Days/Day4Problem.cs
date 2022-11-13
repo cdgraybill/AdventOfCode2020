@@ -69,6 +69,43 @@ namespace AdventOfCode2020.Days
             else
             {
                 var valueChecks = new List<bool>();
+
+                foreach (var key in passport.Keys)
+                {
+                    var validCredential = true;
+
+                    switch (key)
+                    {
+                        case "byr":
+                            validCredential = IsValidBirthYear(passport["byr"]);
+                            break;
+                        case "iyr":
+                            validCredential = IsValidIssueYear(passport["iyr"]);
+                            break;
+                        case "eyr":
+                            validCredential = IsValidExpirationYear(passport["eyr"]);
+                            break;
+                        case "hgt":
+                            validCredential = IsValidHeight(passport["hgt"]);
+                            break;
+                        case "hcl":
+                            validCredential = IsValidHairColor(passport["hcl"]);
+                            break;
+                        case "ecl":
+                            validCredential = IsValidEyeColor(passport["ecl"]);
+                            break;
+                        case "pid":
+                            validCredential = IsValidPassportId(passport["pid"]);
+                            break;
+                        default:
+                            break;
+                    }
+
+                    valueChecks.Add(validCredential);
+                }
+
+                if (valueChecks.Contains(false))
+                    isValid = false;
             }
 
             return isValid;
@@ -160,7 +197,7 @@ namespace AdventOfCode2020.Days
             return isValidHeight;
         }
 
-        public bool IsHexColor(string hexColor)
+        public bool IsValidHairColor(string hexColor)
         {
             var res = 0;
             var parsedHexColor = hexColor.Substring(1, hexColor.Length -1);

@@ -156,7 +156,7 @@ namespace AdventOfCode2020Tests
         public void IsHexColor_IsValid(string hexColor)
         {
             var day4 = new Day4Problem();
-            var isHexColor = day4.IsHexColor(hexColor);
+            var isHexColor = day4.IsValidHairColor(hexColor);
 
             Assert.IsTrue(isHexColor);
         }
@@ -167,7 +167,7 @@ namespace AdventOfCode2020Tests
         public void IsHexColor_IsInvalid(string hexColor)
         {
             var day4 = new Day4Problem();
-            var isValidHeight = day4.IsHexColor(hexColor);
+            var isValidHeight = day4.IsValidHairColor(hexColor);
 
             Assert.IsFalse(isValidHeight);
         }
