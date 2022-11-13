@@ -69,7 +69,7 @@ namespace AdventOfCode2020Tests
             var day2 = new Day2Problem();
             var numberOfValidPasswords = day2.CountNumberOfValidPasswordsPartOne();
 
-            Assert.AreEqual(2, numberOfValidPasswords);
+            Assert.AreEqual(636, numberOfValidPasswords);
         }
 
         [Test]
@@ -78,7 +78,7 @@ namespace AdventOfCode2020Tests
             var day2 = new Day2Problem();
             var numberOfValidPasswords = day2.CountNumberOfValidPasswordsPartTwo();
 
-            Assert.AreEqual(2, numberOfValidPasswords);
+            Assert.AreEqual(588, numberOfValidPasswords);
         }
     }
 }

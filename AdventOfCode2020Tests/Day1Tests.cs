@@ -19,7 +19,7 @@ namespace AdventOfCode2020Tests
             Day1Problem day1 = new Day1Problem();
             var sum = day1.GetAnswerPartOne(Numbers);
 
-            Assert.AreEqual(2020, sum);
+            Assert.AreEqual(55776, sum);
         }
 
         [Test]
@@ -28,7 +28,7 @@ namespace AdventOfCode2020Tests
             Day1Problem day1 = new Day1Problem();
             var sum = day1.GetAnswerPartTwo(Numbers);
 
-            Assert.AreEqual(2020, sum);
+            Assert.AreEqual(223162626, sum);
         }
     }
 }

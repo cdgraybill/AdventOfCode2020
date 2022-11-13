@@ -49,7 +49,7 @@ namespace AdventOfCode2020Tests
             var day4 = new Day4Problem();
             var numberOfValidPasswords = day4.GetNumberOfValidPasswords(ProblemInput);
 
-            Assert.AreEqual(2, numberOfValidPasswords);
+            Assert.AreEqual(160, numberOfValidPasswords);
         }
 
         [Test]

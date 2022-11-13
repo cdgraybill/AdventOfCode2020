@@ -83,7 +83,7 @@ namespace AdventOfCode2020Tests
             var forest = day3.ParseInput();
             var numberOfTrees = day3.CountTreesPartOne(forest);
 
-            Assert.AreEqual(7, numberOfTrees);
+            Assert.AreEqual(240, numberOfTrees);
         }
 
         [Test]

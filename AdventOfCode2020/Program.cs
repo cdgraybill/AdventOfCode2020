@@ -7,9 +7,7 @@ namespace AdventOfCode2020
     {
         static void Main(string[] args)
         {
-            Day2Problem day2 = new();
-
-            Console.WriteLine(day2.ParseInput());
+            
         }
     }
 }
