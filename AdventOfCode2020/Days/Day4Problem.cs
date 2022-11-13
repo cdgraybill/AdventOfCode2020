@@ -61,54 +61,67 @@ namespace AdventOfCode2020.Days
         {
             var isValid = true;
             isValid = HasMandatoryKeys(passport, isValid);
+            isValid = HasValidCredentials(passport, isValid);
 
+            return isValid;
+        }
+
+        private bool HasValidCredentials(Dictionary<string, string> passport, bool isValid)
+        {
             if (isValid == false)
             {
                 return isValid;
             }
             else
             {
-                var valueChecks = new List<bool>();
+                List<bool> credentialChecks = GetCredentialChecks(passport);
 
-                foreach (var key in passport.Keys)
-                {
-                    var validCredential = true;
-
-                    switch (key)
-                    {
-                        case "byr":
-                            validCredential = IsValidBirthYear(passport["byr"]);
-                            break;
-                        case "iyr":
-                            validCredential = IsValidIssueYear(passport["iyr"]);
-                            break;
-                        case "eyr":
-                            validCredential = IsValidExpirationYear(passport["eyr"]);
-                            break;
-                        case "hgt":
-                            validCredential = IsValidHeight(passport["hgt"]);
-                            break;
-                        case "hcl":
-                            validCredential = IsValidHairColor(passport["hcl"]);
-                            break;
-                        case "ecl":
-                            validCredential = IsValidEyeColor(passport["ecl"]);
-                            break;
-                        case "pid":
-                            validCredential = IsValidPassportId(passport["pid"]);
-                            break;
-                        default:
-                            break;
-                    }
-
-                    valueChecks.Add(validCredential);
-                }
-
-                if (valueChecks.Contains(false))
+                if (credentialChecks.Contains(false))
                     isValid = false;
             }
 
             return isValid;
+        }
+
+        private List<bool> GetCredentialChecks(Dictionary<string, string> passport)
+        {
+            var valueChecks = new List<bool>();
+
+            foreach (var key in passport.Keys)
+            {
+                var validCredential = true;
+
+                switch (key)
+                {
+                    case "byr":
+                        validCredential = IsValidBirthYear(passport["byr"]);
+                        break;
+                    case "iyr":
+                        validCredential = IsValidIssueYear(passport["iyr"]);
+                        break;
+                    case "eyr":
+                        validCredential = IsValidExpirationYear(passport["eyr"]);
+                        break;
+                    case "hgt":
+                        validCredential = IsValidHeight(passport["hgt"]);
+                        break;
+                    case "hcl":
+                        validCredential = IsValidHairColor(passport["hcl"]);
+                        break;
+                    case "ecl":
+                        validCredential = IsValidEyeColor(passport["ecl"]);
+                        break;
+                    case "pid":
+                        validCredential = IsValidPassportId(passport["pid"]);
+                        break;
+                    default:
+                        break;
+                }
+
+                valueChecks.Add(validCredential);
+            }
+
+            return valueChecks;
         }
 
         private bool HasMandatoryKeys(Dictionary<string, string> passport, bool isValid)
