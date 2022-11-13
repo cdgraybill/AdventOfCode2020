@@ -61,5 +61,15 @@ namespace AdventOfCode2020Tests
             Assert.IsTrue(seatIds.Contains(119));
             Assert.IsTrue(seatIds.Contains(820));
         }
+
+        [Test]
+        public void GetLargestSeatId()
+        {
+            var day5 = new Day5Problem();
+            var seatId = day5.GetLargestSeatId(day5.ProblemInput);
+
+            Assert.IsNotNull(seatId);
+            Assert.AreEqual(878, seatId);
+        }
     }
 }

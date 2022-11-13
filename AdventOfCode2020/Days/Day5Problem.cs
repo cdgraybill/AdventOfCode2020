@@ -14,8 +14,8 @@ namespace AdventOfCode2020.Days
             "BBFFBBFRLL"
         };
 
-        public readonly int[] _numberOfRows = Enumerable.Range(1, 128 + 1).ToArray();
-        public readonly int[] _numberOfColumns = Enumerable.Range(1, 8 + 1).ToArray();
+        public readonly int[] _numberOfRows = Enumerable.Range(0, 128).ToArray();
+        public readonly int[] _numberOfColumns = Enumerable.Range(0, 8).ToArray();
 
         public readonly List<string> ProblemInput = File.ReadLines(@"C:ProblemInputs\Day5.txt").ToList();
 
@@ -68,9 +68,6 @@ namespace AdventOfCode2020.Days
             {
                 var seatingInstructions = SplitRawInstructions(rawInstruction);
 
-                //var rowDirections = seatingInstructions.Row.Distinct().OrderByDescending(x => x).ToArray();
-                //var columnDirections = seatingInstructions.Column.Distinct().OrderByDescending(x => x).ToArray();
-
                 var rowLocation = GetSeatingLocation('F', 'B', seatingInstructions.Row, _numberOfRows);
                 var columnLocation = GetSeatingLocation('L', 'R', seatingInstructions.Column, _numberOfColumns);
 
@@ -80,6 +77,12 @@ namespace AdventOfCode2020.Days
             }
 
             return seatIds;
+        }
+
+        public int GetLargestSeatId(IEnumerable<string> problemInput)
+        {
+            var seatIds = GetSeatIds(problemInput);
+            return seatIds.Max();
         }
     }
 
