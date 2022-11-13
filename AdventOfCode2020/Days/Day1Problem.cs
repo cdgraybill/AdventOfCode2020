@@ -7,33 +7,37 @@ namespace AdventOfCode2020.Days
 {
     public class Day1Problem
     {
-        public List<int> ParseInput()
+        public int GetAnswerPartOne(List<int> numbers)
         {
-            List<int> input = File.ReadLines(@"ProblemInputs\Day1.txt")
-                .Select(x => Convert.ToInt32(x))
-                .ToList();
+            var answer = 0;
+            answer = SortThroughTwoNumbers(numbers, answer);
 
-            return input;
+            return answer;
         }
 
-        public int MultiplyTwoNumbers(List<int> entries)
+        public object GetAnswerPartTwo(List<int> numbers)
         {
-            int answer = 0;
-            entries = ParseInput();
+            var answer = 0;
+            answer = SortThroughThreeNumbers(numbers, answer);
 
-            for (int i = 1; i < entries.Count; i++)
+            return answer;
+        }
+
+        private int SortThroughTwoNumbers(List<int> numbers, int answer)
+        {
+            for (var i = 1; i < numbers.Count; i++)
             {
-                for (int j = 2; j < entries.Count; j++)
+                for (var j = 2; j < numbers.Count; j++)
                 {
-                    int firstNum = entries[i - 1];
-                    int secondNum = entries[j];
+                    var numberOne = numbers[i - 1];
+                    var numberTwo = numbers[j];
 
-                    answer = firstNum + secondNum;
+                    var sum = AddNumbers(numberOne, numberTwo);
 
-                    if (answer == 2020)
+                    if (sum == 2020)
                     {
-                        answer = firstNum * secondNum;
-                        return answer;
+                        answer = MultiplyNumbers(numberOne, numberTwo);
+                        break;
                     }
                 }
             }
@@ -41,33 +45,40 @@ namespace AdventOfCode2020.Days
             return answer;
         }
 
-        public int MultiplyThreeNumbers()
+        private int SortThroughThreeNumbers(List<int> numbers, int answer)
         {
-            int answer = 0;
-            List<int> entries = ParseInput();
-
-            for (int i = 2; i < entries.Count; i++)
+            for (int i = 2; i < numbers.Count; i++)
             {
-                for (int j = 3; j < entries.Count; j++)
+                for (int j = 3; j < numbers.Count; j++)
                 {
-                    for (int k = 4; k < entries.Count; k++)
+                    for (int k = 4; k < numbers.Count; k++)
                     {
-                        int firstNum = entries[i - 2];
-                        int secondNum = entries[j - 1];
-                        int thirdNum = entries[k];
+                        int numberOne = numbers[i - 2];
+                        int numberTwo = numbers[j - 1];
+                        int numberThree = numbers[k];
 
-                        answer = firstNum + secondNum + thirdNum;
+                        var sum = AddNumbers(numberOne, numberTwo, numberThree);
 
-                        if (answer == 2020)
+                        if (sum == 2020)
                         {
-                            answer = firstNum * secondNum * thirdNum;
-                            return answer;
+                            answer = MultiplyNumbers(numberOne, numberTwo, numberThree);
+                            break;
                         }
                     }
                 }
             }
 
             return answer;
+        }
+
+        private int AddNumbers(int numberOne, int numberTwo, int numberThree = 0)
+        {
+            return numberOne + numberTwo + numberThree;
+        }
+
+        private int MultiplyNumbers(int numberOne, int numberTwo, int numberThree = 1)
+        {
+            return numberOne * numberTwo * numberThree;
         }
     }
 }
