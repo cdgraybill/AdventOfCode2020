@@ -71,5 +71,15 @@ namespace AdventOfCode2020Tests
             Assert.IsNotNull(seatId);
             Assert.AreEqual(878, seatId);
         }
+
+        [Test]
+        public void GetMySeatId()
+        {
+            var day5 = new Day5Problem();
+            var seatId = day5.GetMySeatId(day5.ProblemInput);
+
+            Assert.IsNotNull(seatId);
+            Assert.AreEqual(878, seatId);
+        }
     }
 }

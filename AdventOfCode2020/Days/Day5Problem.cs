@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
+using System.Security.Cryptography.X509Certificates;
 
 namespace AdventOfCode2020.Days
 {
@@ -83,6 +84,35 @@ namespace AdventOfCode2020.Days
         {
             var seatIds = GetSeatIds(problemInput);
             return seatIds.Max();
+        }
+
+        public int GetMySeatId(IEnumerable<string> problemInput)
+        {
+            var seatIds = GetSeatIds(problemInput).OrderByDescending(x => x).ToList();
+            var mySeatId = FindMissingSeatId(seatIds);
+
+            return mySeatId;
+        }
+
+        private static int FindMissingSeatId(List<int> seatIds)
+        {
+            var mySeatId = 0;
+            var highestSeatId = 878;
+
+            for (int i = 1; i < seatIds.Count; i++)
+            {
+                if (seatIds[i - 1] != highestSeatId)
+                {
+                    mySeatId = seatIds[i - 1] + 1;
+                    break;
+                }
+                else
+                {
+                    highestSeatId--;
+                }
+            }
+
+            return mySeatId;
         }
     }
 
