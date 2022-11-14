@@ -35,7 +35,7 @@ namespace AdventOfCode2020.Days
 
             for (int i = 1; i <= problemInput.Count; i++)
             {
-                GetRawPassportString(problemInput, sb, i);
+                GetSingleRawStringOfProblemInput(problemInput, sb, i);
 
                 if (string.IsNullOrEmpty(problemInput[i - 1]) || i == problemInput.Count)
                 {
@@ -157,7 +157,8 @@ namespace AdventOfCode2020.Days
             return passport;
         }
 
-        private static void GetRawPassportString(List<string> problemInput, StringBuilder sb, int i)
+        //TODO: Refactor repo architecture to put this into "Helper"(??) class
+        public static void GetSingleRawStringOfProblemInput(List<string> problemInput, StringBuilder sb, int i)
         {
             if (!string.IsNullOrEmpty(problemInput[i - 1]))
                 sb.Append(problemInput[i - 1] + " ");
